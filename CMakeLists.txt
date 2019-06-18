@@ -3,4 +3,4 @@ project(Algorithm)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Algorithm main.cpp lcs.h common.h)
+add_executable(Algorithm main.cpp lcs.h common.h quicksort.h)
