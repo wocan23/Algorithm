@@ -72,9 +72,7 @@ void quick_sort_min(int arr[],int low, int high){
 }
 
 // arr = {5,1,2,4,7,3,9,8}
-enum SORT_TYPE{
-    MAX,MIN
-};
+
 void quick_sort(int arr[],int low, int high, SORT_TYPE type = MIN){
     // 递归结束条件
     if(low < high){
@@ -90,7 +88,7 @@ void quick_sort(int arr[],int low, int high, SORT_TYPE type = MIN){
             if(i < j){
                 arr[i++] = arr[j]; // 将小的数赋值给当前的i,即基数所占的位置
             }
-            while(i < j && ((type == MIN && x > arr[i]) || (type == MAX && x < arr[i]))) { // 从左向右找第一个大于x的数
+            while(i < j && (( type == MIN && x > arr[i]) || (type == MAX && x < arr[i]))) { // 从左向右找第一个大于x的数
                 i++;
             }
             if(i < j){

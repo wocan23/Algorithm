@@ -3,6 +3,7 @@ using namespace std;
 
 #include "lcs.h"
 #include "quicksort.h"
+#include "heapsort.h"
 
 void test_lcs(){
     string a = "bcbcdddbc";
@@ -21,7 +22,14 @@ void test_quick_sort(){
     printArr(arr,size);
 }
 
+void test_heap_sort(){
+    int arr[]= {5,1,2,4,7,3,9,8};
+    int size = sizeof(arr)/ sizeof(arr[0]);
+    heap_sort(arr, size, MAX);
+    printArr(arr,size);
+}
+
 int main() {
-    test_quick_sort();
+    test_heap_sort();
     return 0;
 }

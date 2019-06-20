@@ -8,6 +8,10 @@
 #include <iostream>
 using namespace std;
 
+enum SORT_TYPE{
+    MAX,MIN
+};
+
 int Max(int &a,int &b,int &c){
     return max(max(a,b),c);
 }
