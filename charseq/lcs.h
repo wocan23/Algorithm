@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-#include "common.h"
+#include "../common.h"
 //  匹配
 //  A=a1a2……aN，表示A是由a1a2……aN这N个字符组成，Len(A)=N;
 //

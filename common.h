@@ -8,6 +8,8 @@
 #include <iostream>
 using namespace std;
 
+#include <vector>
+
 enum SORT_TYPE{
     MAX,MIN
 };
@@ -27,6 +29,14 @@ void printArr(int **arr, int length1,int length2){
             cout << arr[i][j] << endl;
         }
         cout << endl;
+    }
+}
+
+template <typename T>
+void printVector(const vector<T>& res){
+    int size = res.size();
+    for(int i = 0; i < size; i++){
+        cout << res[i] << endl;
     }
 }
 
