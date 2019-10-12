@@ -17,7 +17,7 @@ using namespace std;
  也可以这么理解，f(abc) = [a+f(bc)] U [b+f(ac)] U [c+f(ba)]
  */
 
-vector<string> permutation(string source, string pre){
+vector<string> permutation(const string& source, const string& pre){
     vector<string> res;
     int size = source.size();
     if(size == 1){
