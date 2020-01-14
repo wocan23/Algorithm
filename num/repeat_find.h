@@ -6,7 +6,7 @@
 #define ALGORITHM_REPEAT_FIND_H
 
 /**
- * 找到数组中唯一重复的数字(异或),只有连续时候管用
+ * 找到数组中唯一重复的数字(异或),只有连续时候管用(1~N-1)
  * @param arr
  * @param size
  * @return
