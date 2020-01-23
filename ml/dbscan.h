@@ -11,8 +11,9 @@
 #include <vector>
 #include <set>
 #include <stack>
-#include "Point.h"
 #include <iostream>
+#include <sys/time.h>
+
 using namespace std;
 /**
  * 迪卡尔距离
@@ -21,6 +22,32 @@ using namespace std;
  * @return
  */
 
+
+class Point {
+public:
+    double lng;
+    double lat;
+    string id;
+
+    int nearCount;
+    int pointType;
+    bool visited;
+    vector<int> nearIndexes;
+
+    Point();
+    Point(string id, double lng, double lat);
+};
+
+Point::Point() {
+    this->nearCount = 0;
+}
+
+Point::Point(string id, double lng, double lat) {
+    this->id = id;
+    this->lng = lng;
+    this->lat = lat;
+    this->nearCount = 0;
+}
 
 double get_distance(int p1[2],int p2[2]){
     return pow((pow(p1[0]-p2[0],2)+pow(p1[1]-p2[1],2)),-2);
@@ -62,7 +89,21 @@ double get_gps_distance(Point& p1, Point& p2){
     return get_gps_distance(p1.lng,p1.lat,p2.lng,p2.lat);
 }
 
+long get_current_timemills(){
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_usec/1000+tv.tv_sec*1000;
+}
+
+long get_current_time(){
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec;
+}
+
 void do_dbscan(Point points[],int size, double r, int num){
+
+    cout <<"ct："<< get_current_time() << endl;
     // 所有访问集合
     set<string> visited_point_ids;
     // 去除噪音的点
@@ -71,17 +112,23 @@ void do_dbscan(Point points[],int size, double r, int num){
     vector<Point> max_near_count_points;
 
     stack<int> stack1;
-
+    cout << "near count" << endl;
+    long t1 = get_current_time();
     // 计算附近点个数
     for(int i=0;i<size;i++){
         for(int j=i+1;j<size;j++){
-            if(get_gps_distance(points[i],points[j])<r)
+            double dist = get_gps_distance(points[i],points[j]);
+//            cout << dist << endl;
+            if(dist<r){
+//                cout << ">r" << endl;
                 points[i].nearCount++;
                 points[j].nearCount++;
+            }
         }
     }
-
-    // 标记符合条件的点
+    long t2 = get_current_time();
+    cout << "near points cost: [" << (t2-t1)<< " ]s" << endl;
+    // 标记符合条件的点，瞬间
     for(int i=0;i< size;i++){
         if(points[i].nearCount>=num) {
             points[i].pointType = 3;
@@ -89,7 +136,10 @@ void do_dbscan(Point points[],int size, double r, int num){
         }
     }
 
-    // 附近点索引号放入附近点集合
+    long t3 = get_current_time();
+    cout << "cluster and pre count:"<< pre_cluster_points.size() << endl;
+    cout << "get all pre point cost: [" << (t3-t2)<< " ]s" << endl;
+    // 附近点索引号放入附近点集合，60s
     for(int i=0;i<pre_cluster_points.size();i++){
         for(int j=i+1;j<pre_cluster_points.size();j++){
             if(get_gps_distance(pre_cluster_points[i],pre_cluster_points[j])<r){
@@ -98,7 +148,9 @@ void do_dbscan(Point points[],int size, double r, int num){
             }
         }
     }
-
+    long t4 = get_current_time();
+    cout << "nearIndexes point cost: [" << (t4-t3)<< " ]s" << endl;
+    // 聚类：瞬间
     for(int i=0;i<pre_cluster_points.size();i++){
         stack<Point*> ps;
         if(pre_cluster_points[i].visited) continue;
@@ -124,6 +176,8 @@ void do_dbscan(Point points[],int size, double r, int num){
         }
         max_near_count_points.push_back(*max);
     }
+    long t5 = get_current_time();
+    cout << "central point cost: [" << (t5-t4)<< " ]s" << endl;
     print_arr(max_near_count_points);
 }
 

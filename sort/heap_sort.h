@@ -5,7 +5,7 @@
 #ifndef ALGORITHM_HEAPSORT_H
 #define ALGORITHM_HEAPSORT_H
 
-#include "../common.h"
+#include "../common/common.h"
 
 void swap(int arr[], int i, int j){
     int tmp = arr[i];

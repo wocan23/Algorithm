@@ -5,7 +5,7 @@
 #ifndef ALGORITHM_QUICKSORT_H
 #define ALGORITHM_QUICKSORT_H
 
-#include "../common.h"
+#include "../common/common.h"
 
 // arr = {5,1,2,4,7,3,9,8}
 // 从大到小
