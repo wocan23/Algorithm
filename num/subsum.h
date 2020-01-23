@@ -16,16 +16,16 @@
  */
 
 
- double maxSubSum(double arr[], int size){
-     double tmpSum = 0;
-     double maxSubSum = 0;
-     for( int i = 0; i < size; ++i){
-        tmpSum = (tmpSum + arr[i]) > maxSubSum ? tmpSum + arr[i] : arr[i];
-        if( tmpSum > maxSubSum){
-            maxSubSum = tmpSum;
-        }
-     }
-     return maxSubSum;
+double maxSubSum(double arr[], int size){
+ double tmpSum = 0;
+ double maxSubSum = 0;
+ for( int i = 0; i < size; ++i){
+    tmpSum = (tmpSum + arr[i]) > maxSubSum ? tmpSum + arr[i] : arr[i];
+    if( tmpSum > maxSubSum){
+        maxSubSum = tmpSum;
+    }
  }
+ return maxSubSum;
+}
 
 #endif //ALGORITHM_SUBSUM_H
